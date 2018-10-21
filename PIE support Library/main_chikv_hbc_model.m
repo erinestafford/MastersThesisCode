@@ -32,7 +32,7 @@ str.ode_function=@ode_chikv_hbc;
 str.cross_validation_analysis=@none;%cross_validation_analysis;
 
 str.plabel =  {'\theta_2','\pi_1', '\pi_2'}; % Default labels
-str.noise_sd=0; % additive noise standard deviation for generated data
+str.noise_sd=0.05; % additive noise standard deviation for generated data
 str.tend = 300;
 str.tbeg = 0;
 str.nbootstrap=20;% number of bootstrap samples
