@@ -4,7 +4,6 @@ function main_Q0I_UQ_analysis
 
 % the user must a code to generate the QOIs from the POIs 
 str.QOI_model_eval = @my_model;% QOI=my_model(POI)
-
 % If there constraints on the POIs the user must provide
 str.POI_constraints= @constraints; % POI = constraints(POI_input)
 
@@ -32,19 +31,19 @@ disp(str) % display the variables for solving the problem - needs a better print
  str.QOI_pre_analysis(str);
 
 % 2. local sensitivity analysis
-[USI,RSI]=str.QOI_LSA(str); % unscaled and relative sensitivity indices
+ [USI,RSI]=str.QOI_LSA(str); % unscaled and relative sensitivity indices
 
 % 3. extended sensitivity analysis
 [POI_ESA,QOI_ESA]=str.QOI_ESA(str);
 
 %4. global sensitivity analysis
-[POI_GSA,QOI_GSA]=str.QOI_GSA(str);
+% [POI_GSA,QOI_GSA]=str.QOI_GSA(str);
 
 %global sensitivity sobol indices
 % [sobol_indices]=Sobol_GSA(str);
 % sobol_indices
 % 5. final analysis the problem solution
-str.QOI_post_analysis(str);
+% str.QOI_post_analysis(str);
 
 end
 
@@ -81,18 +80,19 @@ switch str.QOI_model_name
         str.POI_mode=str.POI_baseline;
         str.POI_pdf='beta';% uniform triangle beta
     case 'Chikv_HBC'
-        str.POI_names =  {'\theta_2', 'Initial Cumulative Infected', 'K_v', '\pi_1', '\pi_2', 'H_0'};
+        str.POI_names =  {'\theta_2', '\theta_1', 'Initial Cumulative Infected', 'K_v', '\pi_1', '\pi_2', 'H_0'};
         str.nPOI=6;
         
-        str.QOI_names =  {'Total Infected','Infected(t=2)','R0', 'Time of Peak'};
-        str.nQOI=4;
+        str.QOI_names =  {'Total Infected','R0', 'Time of Peak'};
+        str.nQOI=3;
         
         str.QOI_model_eval = @BBB_Chikv_HBC_model;
-        str.POI_baseline=[0.6520;57;1000000;0.5;0.8;100000];
-        str.POI_min=[ .01; 1;100000;.001;.001;10000]; 
-        str.POI_max=[ 0.8;100;1000000;0.5;0.8;100000];
+        str.POI_baseline=[0.6520;1-0.6520;57;5000;0.5;0.8;500];
+        str.POI_min=[0.01;0.01;1;1000;.01;.01;100]; 
+        str.POI_max=[1;1;100;10000;1;1;1000];
         str.POI_mode=str.POI_baseline;
         str.POI_pdf='beta';% uniform triangle beta
+        str.number_ESA_samples = 20;
     otherwise
         error([' str.QOI_model =',str.QOI_model,' is not available'])
 end

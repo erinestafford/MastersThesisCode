@@ -50,6 +50,30 @@ subplot(1,2,2)
 newly_infected = get_newly_infected_count(real);
 plot(tspan,newly_infected, '*')
 
+%% Test Parameter Values
+ params.H0 =  10000;
+ params.K_v = 1000000;
+
+ params.init_cumulative_infected = 10;
+init = ...
+    [params.H0 * params.theta1 - params.init_cumulative_infected*params.theta1,
+    params.H0 * params.theta2 - params.init_cumulative_infected*params.theta2,
+    params.init_cumulative_infected * params.theta1,
+    params.init_cumulative_infected * params.theta2,
+    0,
+    0,
+    params.init_cumulative_infected * params.theta1,
+    params.init_cumulative_infected * params.theta2,
+    params.K_v,
+    0,
+    0];
+[t_model_b,out_model_b] = balance_and_solve([0:500], init, params);
+figure()
+plot(t_model_b,out_model_b(:,7)+out_model_b(:,8))
+hold on
+params.pi2 = 0.5;
+[t_model_b,out_model_b] = balance_and_solve([0:500], init, params);
+plot(t_model_b,out_model_b(:,7)+out_model_b(:,8))
 %% Plot ODE Solutions
 
  params.H0 =  10000;
