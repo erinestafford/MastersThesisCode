@@ -37,13 +37,14 @@ disp(str) % display the variables for solving the problem - needs a better print
 [POI_ESA,QOI_ESA]=str.QOI_ESA(str);
 
 %4. global sensitivity analysis
-% [POI_GSA,QOI_GSA]=str.QOI_GSA(str);
+%  [POI_GSA,QOI_GSA]=str.QOI_GSA(str);
 
 %global sensitivity sobol indices
 % [sobol_indices]=Sobol_GSA(str);
 % sobol_indices
+
 % 5. final analysis the problem solution
-% str.QOI_post_analysis(str);
+ str.QOI_post_analysis(str);
 
 end
 
@@ -81,10 +82,10 @@ switch str.QOI_model_name
         str.POI_pdf='beta';% uniform triangle beta
     case 'Chikv_HBC'
         str.POI_names =  {'\theta_2', '\theta_1', 'Initial Cumulative Infected', 'K_v', '\pi_1', '\pi_2', 'H_0'};
-        str.nPOI=6;
+        str.nPOI=7;
         
-        str.QOI_names =  {'Total Infected','R0', 'Time of Peak'};
-        str.nQOI=3;
+        str.QOI_names =  {'Total Infected','R0', 'Time of Peak', 'Infected at T=2'};
+        str.nQOI=4;
         
         str.QOI_model_eval = @BBB_Chikv_HBC_model;
         str.POI_baseline=[0.6520;1-0.6520;57;5000;0.5;0.8;500];

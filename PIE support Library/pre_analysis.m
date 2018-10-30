@@ -11,7 +11,7 @@ switch str.data
         if str.verbose
             figure;
             disp('model parameters');disp(str) % print structure values
-            plot(tdata,ydata,'b.'); hold on;  % plot the original data
+            plot(tdata,ydata,'b.', 'markersize' ,10); hold on;  % plot the original data
             plot(tdata,zsol(:,7)+zsol(:,8),'k'); hold on;  % plot the original data
             title([str.data,' ydata and solution(black line)']) ;xlabel('tdata'); ylabel('ydata');
         end

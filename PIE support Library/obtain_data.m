@@ -32,11 +32,11 @@ switch str.data
     otherwise % generate data
         tdata=(str.tbeg: (str.tend-str.tbeg)/(str.ntdata-1) : str.tend)'; % times for data
         % define the model and generate the data to be fit
-        [ydata,zsol] = str.evaluate_model(str.psol,tdata,str);
+        [ydata1,zsol] = str.evaluate_model(str.psol,tdata,str);
         % define weights for the data
         % str.wydata=ones(length(ydata),1); % this is the default value
         
-        ydata=ydata+str.noise_sd*randn(size(ydata)) ;% add normally distributed noise
+        ydata=ydata1+str.noise_sd*randn(size(ydata1)) ;% add normally distributed noise
 end
 
 % store the solution and size

@@ -63,8 +63,6 @@ switch str.model
         z0=str.z0; % initial conditions are fixed
         [~,zsol_fit] = str.ode_solver(str.ode_function, tdata, z0,str.ode_opts,str,p); % ode45 ode113 ode23tb
         ydata_fit=zsol_fit(:,1); % only observe first variable
-    case 'chikv'
-        p = 1
     otherwise
 end
 

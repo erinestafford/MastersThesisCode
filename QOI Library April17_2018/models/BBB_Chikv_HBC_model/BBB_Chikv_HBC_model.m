@@ -36,7 +36,7 @@ dydt_fn = @(t,y) Chikv_HBC_ODEs(t, y, theta2, theta1,init_cumulative_infected,K_
 ode_soln = ode45(dydt_fn, tspan, yzero);
 %% Return quantities to analyze
 QOIs(1) = QOI_total_infected_final_time(POIs, ode_soln); % Total infected a tfinal
-%QOIs(2) = QOI_inf_at_fixed_time(POIs, ode_soln); % number infected at a fixed time
+QOIs(4) = QOI_inf_at_fixed_time(POIs, ode_soln); % number infected at a fixed time
 QOIs(2) = QOI_R0(POIs, ode_soln); % R0 for basic SIR
 QOIs(3) = QOI_time_Imax(POIs, ode_soln);
 QOIs = QOIs'; % as col

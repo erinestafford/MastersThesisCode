@@ -1,4 +1,4 @@
-function [t,out] = balance_and_solve_chikv(t_in, init, param, str)
+function [t,out, R0] = balance_and_solve_chikv(t_in, init, param, str)
 
 balance_init = init;
 balance_init(3) = .0001;
@@ -14,6 +14,6 @@ options = odeset('Events',@(t,Y)balancing_event(t, Y, init(7), init(8)));
 t_balance = 100000; % how long we're willing to wait to balance
 [t,Y] = output_chikv([0 t_balance],init,param, str, options);
 new_init = Y(end,:)';
-
+R0 = calc_R0(new_init,param);
 [t,out] = output_chikv(t_in, new_init, param, str, []);
 end
