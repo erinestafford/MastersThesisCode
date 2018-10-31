@@ -52,7 +52,7 @@ str.tbeg=0.0; str.tend=1.0; % beginning and end points for generated data
 % users code instead of the default codes.  If the handle =@none;%
 %  this step will be skipped
 
-str.obtain_data=@obtain_data ;%
+str.obtain_data=@obtain_data;%
 str.define_default_model=@define_default_model; % name of the model to define the data
 str.evaluate_model=@evaluate_model; % name of the function to fit the data
 

@@ -16,12 +16,12 @@ param_struct = ...
      'sigma_h1', 10; %low risk contacts
      'sigma_h2', 30; %high risk contacts
      'sigma_v', 0.5;
-     'H0', 10000;
+     'H0', 10;
      'theta1', 1-P(1); %proportion of population in group 1 - low risk
      'theta2', P(1);% proportion of population in group 2 - high risk
      'theta0', .8; % no risk group
-     'init_cumulative_infected', 20;
-     'K_v' , 100000;
+     'init_cumulative_infected', P(4);
+     'K_v' , 100;
      'pi1', P(2); %proportion that continues to be bitten in infected group 1
      'pi2', P(3); %proportion that continues to be bitten in infected group 2
     }';

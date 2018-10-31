@@ -5,9 +5,13 @@ function [pfit, ydata_fit, residuals, errfit] =fit_data(tdata,ydata,p0,str)
 % input: tdata, ydata,
 
 % check if a variable is to be fixed
+lb = str.lb;
+ub = str.ub;
 if str.remove_index > 0
     str.remove_xvalue=p0(str.remove_index);
     p0(str.remove_index)=[]; % shrink p0
+    lb(str.remove_index)=[];
+    ub(str.remove_index)=[];
 end
 
 switch str.min_method
@@ -18,8 +22,9 @@ switch str.min_method
         [pfit,errfit] = fminunc(str.eval_function,p0,options); % tdata,ydata,str in global
     case 'chikv_optimize' % general  quasi-Newton method
         options = optimset('Algorithm','sqp'); % we think we like sqp, but we aren't sure.
-        init_parray = (str.ub+str.lb)/2; % this could be an input / randomized
-        [pfit, errfit] = fmincon(@(p)get_error(p,tdata,ydata,str), init_parray, [],[],[],[], str.lb, str.ub, [], options);
+        init_parray = p0; % this could be an input / randomized
+        [pfit, errfit] = fmincon(@(p)get_error(p,tdata,ydata,str), init_parray, [],[],[],[], lb, ub, [], options);
+        
  % tdata,ydata,str in global
     case 'MPP' % Moore-Penrose pseudo inverse for linear problems
         if str.nydata ~=1; error('MPP can only be used for 1D arrays');end
