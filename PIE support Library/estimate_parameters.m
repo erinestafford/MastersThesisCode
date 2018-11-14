@@ -34,7 +34,7 @@ global tdata ydata str % global data needed for grad and Hessian function evalua
 str.tdata=tdata; str.ydata=ydata; % save data for analysis
 
 % 3. analyze the problem setup, plot the data
-%  str.pre_analysis(tdata,ydata,zsol,str);
+% str.pre_analysis(tdata,ydata,zsol,str);
 
 % 4. fit the data by minimizing the residuals using a nonlinear solver
 [pfit,ydata_fit,residuals,errfit] = fit_data(tdata,ydata,str.p0,str);
@@ -47,17 +47,17 @@ end
  [str] = str.analyze_residuals(tdata,str.ydata,ydata_fit,residuals,str);
 
 % 6. estimate uncertainty in parameter estimates (bootstrap)
-[str]=str.bootstrap_analysis(tdata,ydata,pfit,str);
+ [str]=str.bootstrap_analysis(tdata,ydata,pfit,str);
 %str.pfit=str.pest_mean; % add option to use mean value as the solution 
 
 % 7. best parameter selection (cross-validation)
 % [CVindex,CVtrainMSE,CVtestMSE]=str.cross_validation_analysis(tdata,ydata,pfit,str);
 
 % 8. determine the local identifiability analysis of the parameters (Hessian analysis)
- [eig_vec_Sidentifable, GRAD, HESS, SV_HESS, V] = str.local_identifiability(pfit,str);
+%  [eig_vec_Sidentifable, GRAD, HESS, SV_HESS, V] = str.local_identifiability(pfit,str);
 
 % 9. extended identifiability analysis of the parameters (profile analysis)
-%[p_range, res_profile]=str.extended_identifiability(tdata,str.ydata,pfit,errfit,str);
+% [p_range, res_profile]=str.extended_identifiability(tdata,str.ydata,pfit,errfit,str);
 
 % % % 10. global identifiability analysis (sampling)
 % [psfit,fsfit]=str.global_identifiability(tdata,str.ydata,pfit,errfit,str);

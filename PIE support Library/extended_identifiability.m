@@ -26,13 +26,15 @@ if str.verbose; disp('BEGIN EXTENDED IDENTIFIABILITY PROFILE ANALYSIS');disp(' '
 
 
 npvar=length(pfit);
-p_range=NaN(npvar,str.profile_nsamps);res_profile=NaN(npvar,str.profile_nsamps);pfit_profile=NaN(npvar,str.profile_nsamps,npvar);
+p_range=NaN(npvar,str.profile_nsamps);
+res_profile=NaN(npvar,str.profile_nsamps);
+pfit_profile=NaN(npvar,str.profile_nsamps,npvar);
 str.profile_range;
 
 pfit0=pfit;
 for ip=1:npvar
     % define range of the parameters
-    p_range(ip,:)=linspace(pfit(ip)-str.profile_range, pfit(ip)+str.profile_range, str.profile_nsamps)';
+    p_range(ip,:)=linspace(str.lb(ip), str.ub(ip), str.profile_nsamps)';
     
     % leave p(ip) out (freeze at pfit(ip))
     str.remove_index=ip;
@@ -49,8 +51,10 @@ str.remove_index=0; % reset LOO profile index to zero
 figure; 
 % label=strings(npvar,1); he
 for ip=1:npvar
-    xmin=min(p_range(ip,:));xmax=max(p_range(ip,:));
-    ymin=min(res_profile(ip,:)); ymax=max(res_profile(ip,:));
+    xmin=min(p_range(ip,:));
+    xmax=max(p_range(ip,:));
+    ymin=min(res_profile(ip,:))
+    ymax=max(res_profile(ip,:))
 
     % plot residual
     subplot(npvar,2,2*ip-1); plot(p_range(ip,:),res_profile(ip,:))

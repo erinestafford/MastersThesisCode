@@ -34,7 +34,7 @@ end
 [ydata_fit,~] = str.evaluate_model(p,tdata,str); % evaluate the model
 switch str.data
     case 'chikv'
-        residuals = ydata-ydata_fit;
+        residuals = str.wydata.*(ydata-ydata_fit);
     otherwise
         residuals = str.wydata.*(ydata-ydata_fit);
 end

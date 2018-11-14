@@ -4,28 +4,7 @@ function dzdt = ode_chikv_hbc(z,str,P)
 % p = parameters for problem 
 
 dzdt=NaN(size(z));
-param_struct = ...
-    {'beta_h', 0.24;
-     'beta_v', 0.24;
-     'gamma_h', 1/6;
-     'mu_h', 1/(70*365);
-     'nu_h', 1/3;
-     'psi_v', 0.3;
-     'mu_v', 1/17;
-     'nu_v', 1/11;
-     'sigma_h1', 10; %low risk contacts
-     'sigma_h2', 30; %high risk contacts
-     'sigma_v', 0.5;
-     'H0', 10;
-     'theta1', 1-P(1); %proportion of population in group 1 - low risk
-     'theta2', P(1);% proportion of population in group 2 - high risk
-     'theta0', .8; % no risk group
-     'init_cumulative_infected', P(4);
-     'K_v' , 100;
-     'pi1', P(2); %proportion that continues to be bitten in infected group 1
-     'pi2', P(3); %proportion that continues to be bitten in infected group 2
-    }';
-params = struct(param_struct{:});
+params = get_p_struct(str, P);
 %% Host
 %Group1 - Low Risk, Group2 - High Risk
 S_h1 = z(1);

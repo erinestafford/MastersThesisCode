@@ -1,5 +1,5 @@
-function [t,out, R0] = balance_and_solve_chikv(t_in, init, param, str)
-
+function [t,out, R0] = balance_and_solve_chikv(t_in, param, str)
+init = get_init(str,param);
 balance_init = init;
 balance_init(3) = .0001;
 balance_init(4) = .0001;

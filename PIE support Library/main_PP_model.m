@@ -39,6 +39,8 @@ str.nbootstrap=20;% number of bootstrap samples
 
 str.z0=[1,2]; % initial conditions for differential equation model
 str.psol=[10,5,2,1]'; % parameters used to define the data
+str.lb = [];
+str.ub = [];
 str.p0=str.psol; % initial guess at the solution for the parameters
 str.p0=0.99*str.psol ; % initial guess at the solution (=psol for initial testing)
 

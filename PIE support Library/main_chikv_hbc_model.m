@@ -31,69 +31,28 @@ str.evaluate_model=@evaluate_chikv_hbc_model; % name of the function to fit the 
 str.ode_function=@ode_chikv_hbc;
 str.cross_validation_analysis=@none;%cross_validation_analysis;
 
-str.plabel =  {'\theta_2','\pi_1', '\pi_2','init'}; % Default labels
+str.plabel =  {'\theta_2','\pi_1', '\pi_2'};%,'init','K_v'}; % Default labels
 str.noise_sd=0.05; % additive noise standard deviation for generated data
-str.tend = 200;
+str.tend = 300;
 str.tbeg = 0;
 str.nbootstrap=20;% number of bootstrap samples
 
-str.psol=[0.7,0.5,.8,2]'; % initial guess at the solution for the parameters
-str.ub = [.8,0.7, 0.9,4]';
-str.lb = [.1,0.1, 0.1,0.1]';
-str.z0 = ...
-    [10 *(1-str.psol(1)) - str.psol(4)*(1-str.psol(1)),
-     10* str.psol(1) - str.psol(4)*str.psol(1),
-     str.psol(4) * (1-str.psol(1)),
-     str.psol(4) * str.psol(1),
-     0,
-     0,
-     str.psol(4) * (1-str.psol(1)),
-     str.psol(4) * str.psol(1),
-     100,
-     0,
-     0]; % initial conditions for differential equation model
-str.p0=0.8*str.psol ; % initial guess at the solution (=psol for initial testing)
+str.psol=[0.7,0.6,.8]';%,40,2000]'; % initial guess at the solution for the parameters
+str.ub = [1,.8, .9]';%,50,3000]';
+str.lb = [0.1,0.2, 0.3]';%,10,1000]';
+str.p0=(str.ub+str.lb)/2; % initial guess at the solution (=psol for initial testing)
 str.pref=str.psol; % reference solution for regularization is initial guess
 str.wpref = ones(size(str.psol)); % default weights for regularization.
 
-%% OPTIMIZATION METHOD PARAMETERS
-str.min_method='chikv_optimize';%  lsqnonlin  fminunc  MPP NL minimization program
-
-% Current optimization programs  only require function
-% values, not the Jacobian or Hessian from the user
-% Name of the nonlinear  minimization (optimization) function to be used.  Some of these functions
-% require the user supply the residual R(X) and others require f(X)= R'*R
-% lsqnonlin  nonlinear least squares program, provide the residual
-% fminunc  unconstrained optimization, provide f(X)= R'*R
-% MPP  Moore-Penrose pseudoinverse for linear problems, must have defined the matrix str.A
-
-% The optimization routine requires a function to be minimized.  The
-% default names can be changed to a user provided function
-str.eval_residual=@eval_residual; % name of the function returning the residuals
-str.eval_function=@eval_function; % name of the function returning the f(p)=R'*R
-% these default functions only require function values.
-
+str.min_method='chikv_optimize';% chikv_optimize lsqnonlin  fminunc  MPP NL minimization program
 end
 
 function [ydata_fit,zsol_fit, R0] = evaluate_chikv_hbc_model(p,tdata,str)
 % EVALUATE_MODEL User routine to evaluate the model at the data points
 % and generate the fitted approximations to the observable data
 
-
 ntdata=length(tdata);
-z0 =  ...
-    [10 *(1-p(1)) - p(4)*(1-p(1)),
-     10* p(1) - p(4)*p(1),
-     p(4) * (1-p(1)),
-     p(4) * p(1),
-     0,
-     0,
-     p(4) * (1-p(1)),
-     p(4) * p(1),
-     100,
-     0,
-     0];
-[tsol,zsol_fit, R0] = balance_and_solve_chikv(tdata, z0, p, str);
+[tsol,zsol_fit, R0] = balance_and_solve_chikv(tdata, p, str);
 if length(tsol) ~= length(tdata)% check of ODE solver was successful
     warning('ODE solver failed to reach the final time. Augmenting solution with zeros')
     [nt, nz] = size(zsol_fit); zsol_fit=[zsol_fit;zeros(length(tdata)-nt,nz)];
