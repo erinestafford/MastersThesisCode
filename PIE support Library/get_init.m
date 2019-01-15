@@ -14,15 +14,15 @@ else
     param = p;
 end
 init =  ...
-    [1000 *(1-param(1)) - 40*(1-param(1)),
-     1000* param(1) - 40*param(1),
-     40 * (1-param(1)),
-     40 * param(1),
+    [1000 *(1-param(1)) - param(4)*(1-param(1)),
+     1000* param(1) - param(4)*param(1),
+     param(4) * (1-param(1)),
+     param(4) * param(1),
      0,
      0,
-     40 * (1-param(1)),
-     40 * param(1),
-     2000,
+     param(4) * (1-param(1)),
+     param(4) * param(1),
+     param(5),
      0,
      0];
 end

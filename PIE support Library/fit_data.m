@@ -27,7 +27,7 @@ switch str.min_method
         [pfit,errfit] = fminunc(str.eval_function,p0,options); % tdata,ydata,str in global
     case 'chikv_optimize' % general  quasi-Newton method
         options = optimset('Algorithm','interior-point'); 
-        [pfit, errfit] = fmincon(@(p)get_error(p,tdata,ydata,str), p0, [],[],[],[], lb, ub, [], options);
+        [pfit, errfit] = fminunc(@(p)get_error(p,tdata,ydata,str), p0);%, options);
         
  % tdata,ydata,str in global
     case 'MPP' % Moore-Penrose pseudo inverse for linear problems
