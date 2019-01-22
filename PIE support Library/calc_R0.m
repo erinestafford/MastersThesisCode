@@ -1,27 +1,6 @@
-function R0 = calc_R0(init,P)
+function R0 = calc_R0(init,P,str)
 %CHIK_CALC_R0 Given params and t0, return what would be R_0 at t_0
-param_struct = ...
-    {'beta_h', 0.24;
-     'beta_v', 0.24;
-     'gamma_h', 1/6;
-     'mu_h', 1/(70*365);
-     'nu_h', 1/3;
-     'psi_v', 0.3;
-     'mu_v', 1/17;
-     'nu_v', 1/11;
-     'sigma_h1', 10; %low risk contacts
-     'sigma_h2', 30; %high risk contacts
-     'sigma_v', 0.5;
-     'H0', 10000;
-     'theta1', 1-P(1); %proportion of population in group 1 - low risk
-     'theta2', P(1);% proportion of population in group 2 - high risk
-     'theta0', .8; % no risk group
-     'init_cumulative_infected', 20;
-     'K_v' , 100000;
-     'pi1', P(2); %proportion that continues to be bitten in infected group 1
-     'pi2', P(3); %proportion that continues to be bitten in infected group 2
-    }';
-P = struct(param_struct{:});
+P = get_p_struct(str, P);
 %% Calc_bt
 b_hw1 = P.sigma_h1 * init(1) + P.sigma_h1 * P.pi1 * init(3) + P.sigma_h1 * init(5);
 b_hw2 = P.sigma_h2 * init(2) + P.sigma_h2 * P.pi2 * init(4) + P.sigma_h2 * init(6);
