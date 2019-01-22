@@ -12,8 +12,8 @@ balance_init(2) = balance_init(2) + init(4) - balance_init(4);
 options = odeset('Events',@(t,Y)balancing_event(t, Y, init(7), init(8)));
 
 t_balance = 100000; % how long we're willing to wait to balance
-[t,Y] = output_chikv([0 t_balance],init,param, str, options);
+[t,Y] = output_chikv([0 t_balance],balance_init,param, str, options);
 new_init = Y(end,:)';
-R0 = calc_R0(new_init,param);
+R0 = calc_R0(new_init,param,str);
 [t,out] = output_chikv(t_in, new_init, param, str, []);
 end
