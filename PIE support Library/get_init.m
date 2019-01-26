@@ -13,16 +13,29 @@ if str.remove_index > 0
 else
     param = p;
 end
+% init =  ...
+%     [1000 *(1-param(1)) - param(4)*(1-param(1)),
+%      1000* param(1) - param(4)*param(1),
+%      param(4) * (1-param(1)),
+%      param(4) * param(1),
+%      0,
+%      0,
+%      param(4) * (1-param(1)),
+%      param(4) * param(1),
+%      param(5),
+%      0,
+%      0];
+
 init =  ...
-    [1000 *(1-param(1)) - param(4)*(1-param(1)),
-     1000* param(1) - param(4)*param(1),
-     param(4) * (1-param(1)),
-     param(4) * param(1),
+    [1000 *0.3 - param(1)*0.3,
+     1000* 0.7 - param(1)*0.7,
+     param(1) * 0.3,
+     param(1) * 0.7,
      0,
      0,
-     param(4) * (1-param(1)),
-     param(4) * param(1),
-     param(5),
+     param(1) * 0.3,
+     param(1) * 0.7,
+     1000,
      0,
      0];
 end
