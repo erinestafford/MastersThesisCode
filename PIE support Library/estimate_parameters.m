@@ -54,17 +54,17 @@ end
 % [CVindex,CVtrainMSE,CVtestMSE]=str.cross_validation_analysis(tdata,ydata,pfit,str);
 
 % 8. determine the local identifiability analysis of the parameters (Hessian analysis)
-%  [eig_vec_Sidentifable, GRAD, HESS, SV_HESS, V] = str.local_identifiability(pfit,str);
+ [eig_vec_Sidentifable, GRAD, HESS, SV_HESS, V] = str.local_identifiability(pfit,str);
 
 % 9. extended identifiability analysis of the parameters (profile analysis)
-% [p_range, res_profile]=str.extended_identifiability(tdata,str.ydata,pfit,errfit,str);
+[p_range, res_profile]=str.extended_identifiability(tdata,str.ydata,pfit,errfit,str);
 
 % % % 10. global identifiability analysis (sampling)
-% [psfit,fsfit]=str.global_identifiability(tdata,str.ydata,pfit,errfit,str);
+[psfit,fsfit]=str.global_identifiability(tdata,str.ydata,pfit,errfit,str);
 % 
 
 % % 11. final analysis the problem solution
-% [diff_sol] = str.post_analysis(tdata,ydata,zsol,pfit,str);
+[diff_sol] = str.post_analysis(tdata,ydata,zsol,pfit,str);
 
 end
 
