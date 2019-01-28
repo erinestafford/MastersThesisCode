@@ -37,9 +37,9 @@ str.tend = 300;
 str.tbeg = 0;
 str.nbootstrap=20;% number of bootstrap samples
 
-str.psol=[0.7,0.6,.8,40,2000]'; % initial guess at the solution for the parameters
-str.ub = [1,.8, .9,50,3000]';
-str.lb = [0.1,0.2, 0.3,10,1000]';
+str.psol=[0.7,0.6,.8,4,1000]'; % initial guess at the solution for the parameters
+str.ub = [1,.8, .9,10,1500]';
+str.lb = [0.1,0.2, 0.3,1,800]';
 str.p0=(str.ub+str.lb)/2; % initial guess at the solution (=psol for initial testing)
 str.pref=str.psol; % reference solution for regularization is initial guess
 str.wpref = ones(size(str.psol)); % default weights for regularization.
