@@ -12,8 +12,8 @@ nu_h =  1/3;
 psi_v =  0.3;
 mu_v =  1/17;
 nu_v= 1/11;
-sigma_h1 =  10; %low risk contacts
-sigma_h2 =  30; %high risk contacts
+sigma_h1 =  30; %low risk contacts
+sigma_h2 =  10; %high risk contacts
 sigma_v =  0.5;
 theta0 = .8; % no risk group
 %% Initialize vector

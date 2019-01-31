@@ -53,8 +53,8 @@ figure;
 for ip=1:npvar
     xmin=min(p_range(ip,:));
     xmax=max(p_range(ip,:));
-    ymin=min(res_profile(ip,:))
-    ymax=max(res_profile(ip,:))
+    ymin=min(res_profile(ip,:));
+    ymax=max(res_profile(ip,:));
 
     % plot residual
     subplot(npvar,2,2*ip-1); plot(p_range(ip,:),res_profile(ip,:))

@@ -38,7 +38,7 @@ str.tdata=tdata; str.ydata=ydata; % save data for analysis
 
 % 4. fit the data by minimizing the residuals using a nonlinear solver
 [pfit,ydata_fit,residuals,errfit] = fit_data(tdata,ydata,str.p0,str);
-if str.verbose; 
+if str.verbose 
     disp('The pfit solution values are');
     pfit
 end
@@ -48,7 +48,7 @@ end
 
 % 6. estimate uncertainty in parameter estimates (bootstrap)
  [str]=str.bootstrap_analysis(tdata,ydata,pfit,str);
-%str.pfit=str.pest_mean; % add option to use mean value as the solution 
+str.pfit=str.pest_mean; % add option to use mean value as the solution 
 
 % 7. best parameter selection (cross-validation)
 % [CVindex,CVtrainMSE,CVtestMSE]=str.cross_validation_analysis(tdata,ydata,pfit,str);

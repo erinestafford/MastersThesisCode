@@ -13,7 +13,7 @@ end
 if str.remove_index > 0
     str.remove_xvalue=p0(str.remove_index);
     p0(str.remove_index)=[]; % shrink p0
-    if ~isEmpty(str.lb)
+    if ~isempty(str.lb)
         lb(str.remove_index)=[];
         ub(str.remove_index)=[];
     end
@@ -27,7 +27,7 @@ switch str.min_method
         [pfit,errfit] = fminunc(str.eval_function,p0,options); % tdata,ydata,str in global
     case 'chikv_optimize' % general  quasi-Newton method
         options = optimset('Algorithm','interior-point'); 
-        [pfit, errfit] = fmincon(@(p)get_error(p,tdata,ydata,str), p0,[],[],[],[],str.lb,str.ub);%, options);
+        [pfit, errfit] = fmincon(@(p)get_error(p,tdata,ydata,str), p0,[],[],[],[],lb,ub);%, options);
         
  % tdata,ydata,str in global
     case 'MPP' % Moore-Penrose pseudo inverse for linear problems
@@ -51,7 +51,10 @@ if str.remove_index > 0 % if a point is missing add it back in
     str.remove_xvalue;  
     pfit(str.remove_index:end)];
 end
-
+temp = str.remove_index;
+str.remove_index = 0;
+errfit = get_error(pfit,tdata,ydata,str);
+str.remove_index = temp;
 % [ydata, ydata_fit]
 
 end

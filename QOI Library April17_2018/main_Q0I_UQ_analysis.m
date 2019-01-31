@@ -84,7 +84,7 @@ switch str.QOI_model_name
         str.POI_names =  {'\theta_2', '\theta_1', 'Initial Cumulative Infected', 'K_v', '\pi_1', '\pi_2', 'H_0'};
         str.nPOI=7;
         
-        str.QOI_names =  {'Total Infected','R0', 'Time of Peak', 'Infected at T=2'};
+        str.QOI_names =  {'Total Infected','R0', 'Time of Peak', 'Infected at T=10'};
         str.nQOI=4;
         
         str.QOI_model_eval = @BBB_Chikv_HBC_model;

@@ -1,11 +1,11 @@
 function params = get_p_struct(str, p)
 param = zeros(size(str.p0));
-if str.remove_index > 0
+if str.remove_index > 0 % not right
     for(j = 1:length(str.p0))
         if j < str.remove_index
             param(j) = p(j);
         elseif j == str.remove_index
-            param(j) = str.p0(j);
+            param(j) = str.remove_xvalue;
         else
             param(j) = p(j-1);
         end
