@@ -21,7 +21,7 @@ end
 
 switch str.min_method
     case 'lsqnonlin' % nonlinear least-squares
-        [pfit,errfit] = lsqnonlin(str.eval_residual,p0,[],[],str.min_opts,tdata,ydata,str);
+        [pfit,errfit] = lsqnonlin(str.eval_residual,p0,lb,ub,str.min_opts,tdata,ydata,str);
     case 'fminunc' % general  quasi-Newton method
         options = optimoptions(@fminunc,'Algorithm','quasi-newton');
         [pfit,errfit] = fminunc(str.eval_function,p0,options); % tdata,ydata,str in global

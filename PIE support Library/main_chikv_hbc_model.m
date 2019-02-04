@@ -38,13 +38,14 @@ str.tbeg = 0;
 str.nbootstrap=20;% number of bootstrap samples
 
 str.psol=[0.7,0.6,.8,4,1100]'; % initial guess at the solution for the parameters
-str.ub = [1,1, 1,10,1500]';
-str.lb = [0.5,0, 0,1,900]';
+str.ub = [0.8,0.9, 1,10,1500]';
+str.lb = [0.5,0.3, 0.6,1,700]';
 str.p0=(str.ub+str.lb)/2; % initial guess at the solution (=psol for initial testing)
 str.pref=str.psol; % reference solution for regularization is initial guess
 str.wpref = ones(size(str.psol)); % default weights for regularization.
 str.profile_range= 2.0000e-02;
-str.min_method='chikv_optimize';% chikv_optimize lsqnonlin  fminunc  MPP NL minimization program
+
+str.min_method='lsqnonlin';% chikv_optimize lsqnonlin  fminunc  MPP NL minimization program
 end
 
 function [ydata_fit,zsol_fit, R0] = evaluate_chikv_hbc_model(p,tdata,str)
