@@ -31,15 +31,15 @@ str.evaluate_model=@evaluate_chikv_hbc_model; % name of the function to fit the 
 str.ode_function=@ode_chikv_hbc;
 str.cross_validation_analysis=@none;%cross_validation_analysis;
 
-str.plabel =  {'\theta_2','\pi_1', '\pi_2','init','K_v'}; % Default labels
+str.plabel =  {'init','K_v'}; % Default labels {'\theta_2','\pi_1', '\pi_2',
 str.noise_sd=0.05; % additive noise standard deviation for generated data
 str.tend = 300;
 str.tbeg = 0;
 str.nbootstrap=20;% number of bootstrap samples
 
-str.psol=[0.7,0.6,.8,4,1100]'; % initial guess at the solution for the parameters
-str.ub = [0.8,0.9, 1,10,1500]';
-str.lb = [0.5,0.3, 0.6,1,700]';
+str.psol=[4,1100]'; % initial guess at the solution for the parameters 0.7,0.6,.8,
+str.ub = [10,1500]'; %0.8,0.9, 1,
+str.lb = [1,700]'; %0.5,0.3, 0.6,
 str.p0=(str.ub+str.lb)/2; % initial guess at the solution (=psol for initial testing)
 str.pref=str.psol; % reference solution for regularization is initial guess
 str.wpref = ones(size(str.psol)); % default weights for regularization.

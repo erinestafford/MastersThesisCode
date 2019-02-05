@@ -26,13 +26,13 @@ param_struct = ...
      'sigma_h2', 30; %high risk contacts
      'sigma_v', 0.5;
      'H0', 100;
-     'theta1', 1-param(1); %proportion of population in group 1 - low risk
-     'theta2', param(1);% proportion of population in group 2 - high risk
+     'theta1', 0.3; %proportion of population in group 1 - low risk 1-param(1)
+     'theta2', 0.7;% proportion of population in group 2 - high risk param(1)
      'theta0', .8; % no risk group
-     'init_cumulative_infected', param(4);
-     'K_v' , param(5);
-     'pi1', param(2); %proportion that continues to be bitten in infected group 1
-     'pi2', param(3); %proportion that continues to be bitten in infected group 2
+     'init_cumulative_infected', param(1);
+     'K_v' , param(2);
+     'pi1', 0.6; %proportion that continues to be bitten in infected group 1 param(2)
+     'pi2', 0.8; %proportion that continues to be bitten in infected group 2 param(3)
     }';
 params = struct(param_struct{:});
 end
