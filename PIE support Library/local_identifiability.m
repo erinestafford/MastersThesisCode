@@ -40,7 +40,9 @@ rcond_est=SV_HESS(npvar)/SV_HESS(1); % reciprocal of condition number
 
 % find small singular values
 
-tolerance = sqrt(max(size(HESS))*eps(max(SV_HESS))); % smallest tolerance to be considered
+%100 is a fudge factor, fix later
+tolerance = 100*sqrt(max(size(HESS))*eps(max(SV_HESS))); % smallest tolerance to be considered
+
 sqrt_tolerance=sqrt(tolerance); % tmp fix used for practical identifiability ** needs to use residuals SE
 
 rS = sum(SV_HESS>tolerance); % rank of the matrix for structural identifiability
