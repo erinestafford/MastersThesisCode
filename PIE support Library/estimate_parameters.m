@@ -64,7 +64,7 @@ str.pfit=str.pest_mean; % add option to use mean value as the solution
 % 
 
 % % 11. final analysis the problem solution
-[diff_sol] = str.post_analysis(tdata,ydata,zsol,pfit,str);
+% [diff_sol] = str.post_analysis(tdata,ydata,zsol,pfit,str);
 
 end
 

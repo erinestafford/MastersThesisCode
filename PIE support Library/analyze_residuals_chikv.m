@@ -31,13 +31,13 @@ if str.verbose; disp('BEGIN RESIDUAL ANALYSIS TESTS');disp(' ');
    figure;
    % plot residuals versus time 
     subplot(3,nydim,1)
-    plot(tdata,residuals,'*');
+    plot(tdata,residuals(1:length(tdata)),'*');
     xlabel('time');ylabel(['residuals ',num2str(1)]);
     
     
     % plot residuals versus time 
     subplot(3,nydim,nydim+1)
-    plot(ydata,residuals,'*');
+    plot(ydata,residuals(1:length(ydata)),'*');
     xlabel(['ydata ',num2str(1)]);ylabel(['residuals ',num2str(1)]);
        
         

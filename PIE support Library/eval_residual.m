@@ -42,8 +42,8 @@ end
 % add a regularization term, if it is called for
 switch str.regularize
     case 'none'
-    case 'ridge'
-        residuals = [residuals;str.lambda_scaled*str.wpref.*(p-str.pref)];
+    case 'regularize'
+        residuals = [(1-str.lambda).*residuals;str.lambda*str.wpref.*(p-str.pref)];
     otherwise
         error(['str.regularize not recognized',str.regularize])
 end
