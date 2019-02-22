@@ -35,6 +35,7 @@ pfit0=pfit;
 for ip=1:npvar
     % define range of the parameters
     p_range(ip,:)=linspace(str.lb(ip), str.ub(ip), str.profile_nsamps)';
+
     
     % leave p(ip) out (freeze at pfit(ip))
     str.remove_index=ip;
@@ -95,6 +96,7 @@ if str.verbose
     %     disp('pfit_profile');disp(pfit_profile);
     disp('res_profile');disp(res_profile);
 end
+
 
 end
 

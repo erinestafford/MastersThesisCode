@@ -29,8 +29,8 @@ param_struct = ...
      'theta1', 1-param(1); %proportion of population in group 1 - low risk
      'theta2', param(1);% proportion of population in group 2 - high risk
      'theta0', .8; % no risk group
-     'init_cumulative_infected',4;% param(4);
-     'K_v' ,1100;%param(5);
+     'init_cumulative_infected', param(4);
+     'K_v' ,param(5);
      'pi1', param(2); %proportion that continues to be bitten in infected group 1
      'pi2', param(3); %proportion that continues to be bitten in infected group 2
     }';

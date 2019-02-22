@@ -57,6 +57,7 @@ str.pfit=str.pest_mean; % add option to use mean value as the solution
  [eig_vec_Sidentifable, GRAD, HESS, SV_HESS, V] = str.local_identifiability(pfit,str);
 
 % 9. extended identifiability analysis of the parameters (profile analysis)
+
 [p_range, res_profile]=str.extended_identifiability(tdata,str.ydata,pfit,errfit,str);
 
 % % % 10. global identifiability analysis (sampling)

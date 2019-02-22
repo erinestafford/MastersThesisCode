@@ -51,10 +51,7 @@ if str.remove_index > 0 % if a point is missing add it back in
     str.remove_xvalue;  
     pfit(str.remove_index:end)];
 end
-temp = str.remove_index;
-str.remove_index = 0;
-errfit = get_error(pfit,tdata,ydata,str);
-str.remove_index = temp;
-% [ydata, ydata_fit]
+
+
 
 end

@@ -32,12 +32,8 @@ if str.remove_index > 0 % add parameter back in when doing profile analysis
 end
 
 [ydata_fit,~] = str.evaluate_model(p,tdata,str); % evaluate the model
-switch str.data
-    case 'chikv'
-        residuals = str.wydata.*(ydata-ydata_fit);
-    otherwise
-        residuals = str.wydata.*(ydata-ydata_fit);
-end
+residuals = str.wydata.*(ydata-ydata_fit);
+
 
 % add a regularization term, if it is called for
 switch str.regularize
