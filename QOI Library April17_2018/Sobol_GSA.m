@@ -12,7 +12,6 @@ pdfstr.pdfmode=str.POI_mode;
 POI_samp = unif2pdf(xunif, pdfstr);
 
 %% define the constrained POIs
-POI_samp = str.POI_constraints(POI_samp);
 
 %% evaluate the model
 QOI_samp=NaN(nsamp,str.nQOI);
@@ -20,8 +19,8 @@ for ix=1:nsamp
     QOI_samp(ix,:)=str.QOI_model_eval(POI_samp(ix,:));
 end
 %% Global Sobol Sensitivity Indicies 
-%**** not implimented yet 
-variq=NaN(1,ndim);% gives overall variance in QOIs
+
+variq=NaN(1,nQOI);% gives overall variance in QOIs
 for iq = 1:ndim
     qmean=mean(QOI_samp(:,iq));
     variq(iq)=(QOI_samp(:,iq)-qmean)'*(QOI_samp(:,iq)-qmean)/nsamp;

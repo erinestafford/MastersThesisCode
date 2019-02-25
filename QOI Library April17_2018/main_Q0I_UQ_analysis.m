@@ -31,17 +31,17 @@ disp(str) % display the variables for solving the problem - needs a better print
  str.QOI_pre_analysis(str);
 
 % 2. local sensitivity analysis
- [USI,RSI]=str.QOI_LSA(str); % unscaled and relative sensitivity indices
+%  [USI,RSI]=str.QOI_LSA(str); % unscaled and relative sensitivity indices
 
 % 3. extended sensitivity analysis
-[POI_ESA,QOI_ESA]=str.QOI_ESA(str);
+%  [POI_ESA,QOI_ESA]=str.QOI_ESA(str);
 
 %4. global sensitivity analysis
 %  [POI_GSA,QOI_GSA]=str.QOI_GSA(str);
 
 %global sensitivity sobol indices
-% [sobol_indices]=Sobol_GSA(str);
-% sobol_indices
+[sobol_indices]=Sobol_GSA(str);
+sobol_indices
 
 % 5. final analysis the problem solution
  str.QOI_post_analysis(str);
@@ -81,19 +81,20 @@ switch str.QOI_model_name
         str.POI_mode=str.POI_baseline;
         str.POI_pdf='beta';% uniform triangle beta
     case 'Chikv_HBC'
-        str.POI_names =  {'\theta_2', '\theta_1', 'Initial Cumulative Infected', 'K_v', '\pi_1', '\pi_2', 'H_0'};
-        str.nPOI=7;
+        str.POI_names =  {'\theta_2', '\pi_1', '\pi_2','Initial Cumulative Infected', 'K_v'};
+        str.nPOI=5;
         
-        str.QOI_names =  {'Total Infected','R0', 'Time of Peak', 'Infected at T=10'};
-        str.nQOI=4;
+        str.QOI_names =  {'Total Infected','R0'};
+        str.nQOI=2;
         
         str.QOI_model_eval = @BBB_Chikv_HBC_model;
-        str.POI_baseline=[0.6520;1-0.6520;57;5000;0.5;0.8;500];
-        str.POI_min=[0.01;0.01;1;1000;.01;.01;100]; 
-        str.POI_max=[1;1;100;10000;1;1;1000];
+        str.POI_baseline=[0.7,0.8,.4,4 11000]';
+        str.POI_min=[0.5,0.5,0,1, 9000]'; 
+        str.POI_max=[1,1, 0.6,10, 14000]';
         str.POI_mode=str.POI_baseline;
         str.POI_pdf='beta';% uniform triangle beta
         str.number_ESA_samples = 20;
+      
     otherwise
         error([' str.QOI_model =',str.QOI_model,' is not available'])
 end

@@ -4,7 +4,7 @@ function POIout = POI_constraints(POI)
 
 POIout(:,2)=1 - POI(:,1);
 
-% example of what a POI constrait would look like
+% example of what a POI constraint would look like
 %         POIout(:,1)=1+POI(:,2);
 end
 

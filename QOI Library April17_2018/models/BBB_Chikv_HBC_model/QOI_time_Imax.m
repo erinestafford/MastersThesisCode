@@ -1,4 +1,4 @@
-function time_Imax = QOI_time_Imax(POIs, ode_soln)
+function time_Imax = QOI_time_Imax(ode_soln)
 % input: POIs and old_soln structure from ode solver
 % output: time the epidemic peaks
 

@@ -37,7 +37,7 @@ switch str.pdf
         
     case 'beta'% shape parameter alpha=2, + mode
         % map the mode to the interval [0,1]
-        pdfmode=(str.pdfmode-str.pdfmin)/(str.pdfmax-str.pdfmin);
+        pdfmode=(str.pdfmode-str.pdfmin)./(str.pdfmax-str.pdfmin);
         pdfalpha=2;% use as default value
         for id=1:ndim
             pdfbeta=1/pdfmode(id);

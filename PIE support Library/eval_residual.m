@@ -40,6 +40,8 @@ switch str.regularize
     case 'none'
     case 'regularize'
         residuals = [(1-str.lambda).*residuals;str.lambda*str.wpref.*(p-str.pref)];
+    case 'regularize_weighted'
+        residuals = [(1-str.lambda).*residuals;str.lambda.*1/(str.reg_weights).^2*str.wpref.*(p-str.pref)];
     otherwise
         error(['str.regularize not recognized',str.regularize])
 end

@@ -45,8 +45,9 @@ str.p0=(str.ub+str.lb)/2; % initial guess at the solution (=psol for initial tes
 str.pref=str.psol; % reference solution for regularization is initial guess
 str.wpref = ones(size(str.psol)); % default weights for regularization.
 str.min_method='lsqnonlin';% chikv_optimize lsqnonlin  fminunc  MPP NL minimization program
-str.regularize = 'regularize';
+str.regularize = 'regularize_weighted';
 str.lambda = 0.8;
+str.reg_weights = [0.2,0.1,0.1, 0.3, 0.3]';
 end
 
 function [ydata_fit,zsol_fit, R0] = evaluate_chikv_hbc_model(p,tdata,str)
