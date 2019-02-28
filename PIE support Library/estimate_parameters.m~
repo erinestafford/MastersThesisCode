@@ -60,11 +60,10 @@ end
 % [p_range, res_profile]=str.extended_identifiability(tdata,str.ydata,pfit,errfit,str);
 
 % 10. global identifiability analysis (sampling)
-[psfit,fsfit,weights_reg]=str.global_identifiability(tdata,str.ydata,pfit,errfit,str);
-% 11. determine identifiable combinations
-
+[psfit,fsfit,ident]=str.global_identifiability(tdata,str.ydata,pfit,errfit,str);
+% 11. determine non-identifiable 
 % 12. regularize non-identifiable params
-regularize_params(weights_reg) 
+regularize_params(ident) 
 % % 13. final analysis the problem solution
 % [diff_sol] = str.post_analysis(tdata,ydata,zsol,pfit,str);
 

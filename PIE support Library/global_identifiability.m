@@ -2,7 +2,7 @@
 %------------------------------------------- global_identifiability
 
 
-function [psfit,fsfit]=global_identifiability(tdata,ydata,pfit,~,str)
+function [psfit,fsfit,var_ip_weights]=global_identifiability(tdata,ydata,pfit,~,str)
 %% ANALYZE_PROFILE  % extended identifiability analysis using sampling
 
 % input:
@@ -69,12 +69,17 @@ end
 %% identify nonidentiable variables
 tol=max(str.min_opts.FunctionTolerance,str.ode_opts.AbsTol);% need better formula
 nid=0; nident=NaN(npvar,1);varip=NaN(1,npvar);% number of non-identifiable variables
+var_ip_weights = zeros(npvar,1);
 for ip=1:npvar
     pmean=mean(psfit(:,ip));
     varip(ip)=(psfit(:,ip)-pmean)'*(psfit(:,ip)-pmean)/nfsamp;
     if varip(ip) > tol % then ip is not identifiable
         nid=nid+1;
         nident(nid)=ip;
+        % weights for regularization are calculated such that weights with larger variance
+        %are weighted more heavily
+        var_ip_weights(ip) = min([1, sqrt(abs(varip(ip)))]);
+        var_ip_weights(ip) = 1/var_ip_weights(ip); 
     end
 end
 if str.verbose; disp(['variance of variables ',num2str(varip)]);end
