@@ -25,26 +25,26 @@ str.QOI_model_name='Chikv_HBC'; % define the problem to be solved
 str= QOI_define_default_params(str);% set the default parameter values
 str= QOI_change_default_params(str);% user code to change the default parameter values
 
-disp(str) % display the variables for solving the problem - needs a better print format
+% disp(str) % display the variables for solving the problem - needs a better print format
 
 % 1. analyze the problem setup
- str.QOI_pre_analysis(str);
-
-% 2. local sensitivity analysis
+%  str.QOI_pre_analysis(str);
+% 
+% % 2. local sensitivity analysis
 %  [USI,RSI]=str.QOI_LSA(str); % unscaled and relative sensitivity indices
-
-% 3. extended sensitivity analysis
+% 
+% % 3. extended sensitivity analysis
 %  [POI_ESA,QOI_ESA]=str.QOI_ESA(str);
-
-%4. global sensitivity analysis
-%  [POI_GSA,QOI_GSA]=str.QOI_GSA(str);
+% 
+% %4. global sensitivity analysis
+ [POI_GSA,QOI_GSA]=str.QOI_GSA(str);
 
 %global sensitivity sobol indices
-[sobol_indices]=Sobol_GSA(str);
-sobol_indices
+% [sobol_indices]=Sobol_GSA(str);
+% sobol_indices
 
 % 5. final analysis the problem solution
- str.QOI_post_analysis(str);
+%  str.QOI_post_analysis(str);
 
 end
 
