@@ -37,14 +37,14 @@ str.tdata=tdata; str.ydata=ydata; % save data for analysis
 % str.pre_analysis(tdata,ydata,zsol,str);
 
 % 4. fit the data by minimizing the residuals using a nonlinear solver
-[pfit,ydata_fit,residuals,errfit] = fit_data(tdata,ydata,str.p0,str);
-if str.verbose 
-    disp('The pfit solution values are');
-    pfit
-end
+% [pfit,ydata_fit,residuals,errfit] = fit_data(tdata,ydata,str.p0,str);
+% if str.verbose 
+%     disp('The pfit solution values are');
+%     pfit
+% end
 
 % 5. analyze the residuals for goodness of fit
- [str] = str.analyze_residuals(tdata,str.ydata,ydata_fit,residuals,str);
+%  [str] = str.analyze_residuals(tdata,str.ydata,ydata_fit,residuals,str);
 
 % % 6. estimate uncertainty in parameter estimates (bootstrap)
 %  [str]=str.bootstrap_analysis(tdata,ydata,pfit,str);
@@ -60,13 +60,16 @@ end
 % [p_range, res_profile]=str.extended_identifiability(tdata,str.ydata,pfit,errfit,str);
 
 % 10. global identifiability analysis (sampling)
-[psfit,fsfit,weights_reg]=str.global_identifiability(tdata,str.ydata,pfit,errfit,str);
+% [psfit,fsfit,weights_reg]=str.global_identifiability(tdata,str.ydata,pfit,errfit,str);
 % 11. determine identifiable combinations
 
 % 12. regularize non-identifiable params
-regularize_params(weights_reg) 
+% regularize_params(weights_reg) 
 % % 13. final analysis the problem solution
 % [diff_sol] = str.post_analysis(tdata,ydata,zsol,pfit,str);
+
+%14 
+leave_one_in(str)
 
 end
 

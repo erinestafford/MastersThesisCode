@@ -36,8 +36,13 @@ pcan=halton(ncan, npvar); %(nsamples, ndimension) halton, sobol, rand
 %rescale to hyperrectangale
 psfitmin=NaN(npvar,1);psfitmax=NaN(npvar,1);
 for ip=1:npvar
-    psfitmin(ip)=pfit(ip)-str.profile_range;
-    psfitmax(ip)=pfit(ip)+str.profile_range;
+    if str.remove_index == ip
+        psfitmin(ip)=str.psol(ip);
+        psfitmax(ip)=str.psol(ip);
+    else
+        psfitmin(ip)=pfit(ip)-str.profile_range;
+        psfitmax(ip)=pfit(ip)+str.profile_range;
+    end
     pcan(:,ip)=psfitmin(ip) + (psfitmax(ip)-psfitmin(ip))*pcan(:,ip);
 end
 
