@@ -25,7 +25,7 @@ param_struct = ...
      'sigma_h1', 10; %low risk contacts
      'sigma_h2', 30; %high risk contacts
      'sigma_v', 0.5;
-     'H0', 100;
+     'H0', str.pop;
      'theta1', 1-param(1); %proportion of population in group 1 - low risk
      'theta2', param(1);% proportion of population in group 2 - high risk
      'theta0', .8; % no risk group
@@ -35,4 +35,5 @@ param_struct = ...
      'pi2', param(3); %proportion that continues to be bitten in infected group 2
     }';
 params = struct(param_struct{:});
+
 end

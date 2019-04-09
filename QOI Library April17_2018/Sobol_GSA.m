@@ -12,7 +12,7 @@ pdfstr.pdfmode=str.POI_mode;
 POI_samp = unif2pdf(xunif, pdfstr);
 
 %% define the constrained POIs
-POI_samp = str.POI_constraints(POI_samp);
+%POI_samp = str.POI_constraints(POI_samp); %not needed
 
 %% evaluate the model
 QOI_samp=NaN(nsamp,str.nQOI);
@@ -60,4 +60,5 @@ for i = 1:ndim
         indices(i,j) = varip(i)/variq(j);
     end
 end
+indices= indices';
 end

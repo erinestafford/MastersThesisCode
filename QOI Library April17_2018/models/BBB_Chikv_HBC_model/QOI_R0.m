@@ -16,7 +16,7 @@ b_T = (b_hw * b_vw)/(b_hw + b_vw);
 
 %% R0 for model
 Nh = init(1) + init(2) + init(3) + init(4) + init(5) + init(6);
-Nv = init(7) + init(8) + init(9);
+Nv = init(9) + init(10) + init(11);
 
 R_h = (1/(params.gamma_h +params.mu_h)) * params.beta_h * (b_T/Nv) * (params.theta1 + params.theta2);
 R_v = (1/(params.nu_v + params.mu_v)) * (params.nu_v/params.mu_v) * params.beta_v * (b_T/Nh);

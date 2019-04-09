@@ -24,10 +24,11 @@ switch str.data
     case 'chikv_read'
         addpath('/Users/erinstafford/Documents/GitHub/MastersThesisCode/data_chik');
         country = 'Guadeloupe';
-        [real2014, ~, ~, firstWeek2014] = get_data(country);
-        ydata = real2014;
+        [real2014, h0, ~, firstWeek2014] = get_data(country);
+        str.pop = h0;
+        ydata = real2014';
         tend = length(ydata);
-        tdata = (firstWeek2014)*7:7:((tend+firstWeek2014-1)*7);
+        tdata = (firstWeek2014)*7:7:((tend+firstWeek2014-1)*7)';
         zsol = str.evaluate_model(str.psol,tdata,str);
     otherwise % generate data
         tdata=(str.tbeg: (str.tend-str.tbeg)/(str.ntdata-1) : str.tend)'; % times for data

@@ -21,5 +21,6 @@ ode_soln = ode45(dydt_fn, tspan, yzero);
 %% Return quantities to analyze
 QOIs(1) = QOI_total_infected_final_time(ode_soln); % Total infected a tfinal
 QOIs(2) = QOI_R0(params); 
+QOIs(3) = QOI_Reff(params); 
 QOIs = QOIs'; % as col
 end

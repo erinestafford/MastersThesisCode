@@ -525,11 +525,7 @@ CI_for_predictions_bootstrap(5,5,data20,tdata20,params,opt_params20,array_names,
 %% 30 data points
 data30 = real(1:30);
 tdata30 = tspan(1:30);
-weights = ones(length(data30),1);
-weights(30) = 10;
-weights(29) = 10;
-weights(28) = 10;
-obj_fn30 = @(parray)obj_fn(parray, data30, array_names, tdata30, weights);
+obj_fn30 = @(parray)obj_fn(parray, data30, array_names, tdata30, ones(length(data30),1));
 [opt_params30] = optimizer(obj_fn30, lb, ub, params);
 init30 = get_init_conditions(opt_params30, 0);
 [t30,out30] = balance_and_solve(tspan, init30, opt_params30);
@@ -543,28 +539,8 @@ plot(tspan(33)*ones(size(tspan)),0:max((out1(:,7)+out1(:,8)))/(length(tspan)-1):
 %% 40 data points
 data40 = real(1:40);
 tdata40 = tspan(1:40);
-obj_fn40 = @(parray)obj_fn(parray, data40, array_names, tdata40, ones(length(data40),1));
-[opt_params40] = optimizer(obj_fn40, lb, ub, params);
-init40 = get_init_conditions(opt_params40, 0);
-[t40,out40] = balance_and_solve(tspan, init40, opt_params40);
-figure();
-plot(tspan, out40(:,7)+out40(:,8),'-r')
-hold on
-plot(tspan,full_count,'*')
-plot(tspan(40)*ones(size(tspan)),0:max((out1(:,7)+out1(:,8)))/(length(tspan)-1):max((out1(:,7)+out1(:,8))))
-plot(tspan(43)*ones(size(tspan)),0:max((out1(:,7)+out1(:,8)))/(length(tspan)-1):max((out1(:,7)+out1(:,8))))
 
 %% 50 data points
 data50 = real(1:50);
 tdata50 = tspan(1:50);
-obj_fn50 = @(parray)obj_fn(parray, data50, array_names, tdata50, ones(length(data50),1));
-[opt_params50] = optimizer(obj_fn50, lb, ub, params);
-init50 = get_init_conditions(opt_params50, 0);
-[t50,out50] = balance_and_solve(tspan, init50, opt_params50);
-figure();
-plot(tspan, out50(:,7)+out50(:,8),'-r')
-hold on
-plot(tspan,full_count,'*')
-plot(tspan(50)*ones(size(tspan)),0:max((out1(:,7)+out1(:,8)))/(length(tspan)-1):max((out1(:,7)+out1(:,8))))
-plot(tspan(53)*ones(size(tspan)),0:max((out1(:,7)+out1(:,8)))/(length(tspan)-1):max((out1(:,7)+out1(:,8))))
 

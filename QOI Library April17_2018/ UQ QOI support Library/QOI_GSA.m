@@ -12,7 +12,7 @@ pdfstr.pdfmode=str.POI_mode;
 POI_samp = unif2pdf(xunif, pdfstr);
 
 %% define the constrained POIs
-POI_samp = str.POI_constraints(POI_samp);
+%POI_samp = str.POI_constraints(POI_samp); %not needed
 
 %% POI versus POI correlation plots
 % scatterplot of the correlations of the POIs

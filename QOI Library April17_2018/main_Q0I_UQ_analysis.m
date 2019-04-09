@@ -27,7 +27,7 @@ str= QOI_change_default_params(str);% user code to change the default parameter 
 
 % disp(str) % display the variables for solving the problem - needs a better print format
 
-% 1. analyze the problem setup
+% % 1. analyze the problem setup
 %  str.QOI_pre_analysis(str);
 % 
 % % 2. local sensitivity analysis
@@ -84,8 +84,8 @@ switch str.QOI_model_name
         str.POI_names =  {'\theta_2', '\pi_1', '\pi_2','Initial Cumulative Infected', 'K_v'};
         str.nPOI=5;
         
-        str.QOI_names =  {'Total Infected','R0'};
-        str.nQOI=2;
+        str.QOI_names =  {'Total Infected','R0','R_E'};
+        str.nQOI=3;
         
         str.QOI_model_eval = @BBB_Chikv_HBC_model;
         str.POI_baseline=[0.7,0.8,.4,4 11000]';

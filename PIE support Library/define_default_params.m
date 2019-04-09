@@ -95,7 +95,6 @@ str.profile_nsamps=20;
 str.remove_index=0; % set profile indicator to default value of zero meaning keep
 % all variables. When doing a leave-one-out profile analysis, the variable
 % p(str.remove_index) ranges over a fixed set of values in the optimization process.
-%
 
 %% GLOBAL INDENTIFIAILITY PROFILE PARAMETERS
 % uses str.profile_range for the range of the variables
@@ -141,5 +140,6 @@ str.nsamps_per_BS_block=5; % number of points in block bootstrap,must be an odd 
 %% --- cross validation parameters
 str.nCV_folds=6; % number of cross validation folds
 
-
+%% params needed for predictions
+str.pop = 100;
 end

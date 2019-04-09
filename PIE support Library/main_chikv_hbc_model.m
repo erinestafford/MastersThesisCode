@@ -1,4 +1,4 @@
-function  main_chikv_hbc_model
+ function  main_chikv_hbc_model
 % set the path for the current directory and subdirectories (this needs to
 % be run the first time the code is executed.
 restoredefaultpath ;prefix = mfilename('fullpath');
@@ -38,7 +38,7 @@ str.tbeg = 0;
 str.nbootstrap=20;% number of bootstrap samples
 str.nsamps_per_BS_block = 15;
 
-str.psol=[0.7,0.8,.4,4 1100]'; % initial guess at the solution for the parameters
+str.psol=[0.7,0.8,.4,4, 1100]'; % initial guess at the solution for the parameters
 str.ub = [1,1, 0.6,10, 1400]';
 str.lb = [0.5,0.5,0,1, 900]';
 str.p0=(str.ub+str.lb)/2; % initial guess at the solution (=psol for initial testing)
@@ -46,6 +46,7 @@ str.pref=str.psol; % reference solution for regularization is initial guess
 str.wpref = ones(size(str.psol)); % default weights for regularization.
 str.min_method='lsqnonlin';% chikv_optimize lsqnonlin  fminunc  MPP NL minimization program
 str.regularize = 'none';
+
 end
 
 function [ydata_fit,zsol_fit, R0] = evaluate_chikv_hbc_model(p,tdata,str)

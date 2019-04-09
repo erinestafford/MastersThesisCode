@@ -8,6 +8,9 @@ function [pfit, ydata_fit, residuals, errfit] =fit_data(tdata,ydata,p0,str)
 if length(str.lb)>=1
     lb = str.lb;
     ub = str.ub;
+else
+    lb = [];
+    ub = [];
 end
 
 if str.remove_index > 0
@@ -26,8 +29,8 @@ switch str.min_method
         options = optimoptions(@fminunc,'Algorithm','quasi-newton');
         [pfit,errfit] = fminunc(str.eval_function,p0,options); % tdata,ydata,str in global
     case 'chikv_optimize' % general  quasi-Newton method
-        options = optimset('Algorithm','interior-point'); 
-        [pfit, errfit] = fmincon(@(p)get_error(p,tdata,ydata,str), p0,[],[],[],[],lb,ub);%, options);
+        options = optimset('Algorithm','sqp'); 
+        [pfit, errfit] = fmincon(str.eval_function, p0,[],[],[],[],lb,ub,[],options);
         
  % tdata,ydata,str in global
     case 'MPP' % Moore-Penrose pseudo inverse for linear problems
