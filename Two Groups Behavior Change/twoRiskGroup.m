@@ -2,7 +2,7 @@
 close all; 
 addpath('../data_chik');
 country = 'Guadeloupe';
-[real2014, pop, name, firstWeek2014] = get_data(country);
+[real2014, pop, name, firstWeek2014] = get_data(country,"linear");
 full_count = real2014;
 real = full_count;
 init_infected_h = real(1);
@@ -121,25 +121,25 @@ opt_params1.pi1 = 0.5;
 opt_params1.pi2 = 0.8;
 opt_params1.init_cumulative_infected = 57;
 
-obj_fn1 = @(parray)obj_fn(parray, real, array_names, tspan, get_init_conditions(params, 0),ones(length(real)));
+% obj_fn1 = @(parray)obj_fn(parray, real, array_names, tspan, ones(length(real),1));
 % [opt_params1] = optimizer(obj_fn1, lb, ub, params);
-% opt_params1.theta1 = 1 - opt_params1.theta2;
-% opt_params1
-
- init1 = get_init_conditions(opt_params1, 0);
- [t1,out1] = balance_and_solve(tspan, init1, opt_params1);
+%  opt_params1.theta1 = 1 - opt_params1.theta2;
+%  opt_params1
+% 
+%  init1 = get_init_conditions(opt_params1, 0);
+%  [t1,out1] = balance_and_solve(tspan, init1, opt_params1);
 
  
-R01 = calc_Reff(opt_params1, out1(1,:));
+% R01 = calc_Reff(opt_params1, out1(1,:));
 %Reff1 = calc_Reff(opt_params1, out1(30,:))
 %Rinf = calc_Rinf(opt_params1, out1(end,:))
 %peak = get_peak_infected(out1);
 
-
+% 
 % figure()
 % plot_model(t1, out1);
-% figure()
-% plot_both(t1, out1, tspan, real);
+figure()
+plot_both(t1, out1, tspan, real);
 
 %  
 %  %calc b_h's
@@ -429,67 +429,6 @@ R01 = calc_Reff(opt_params1, out1(1,:));
 % [param,val] = plot_obj_fn(struct2array(opt_params1, array_names), real, array_names, tspan, 'K_v', r);
 
 
-%% Bootstrap for CI
-nsamps_per_BS_block = 45;
-nbootstrap = 7;
-wydata = ones(size(real'));
-npvar=length(struct2array(opt_params1,array_names));
-[ntdata,nzdim]=size(real');
-blockhalfwith=floor(nsamps_per_BS_block/2);% block half width
-nybeg=blockhalfwith+1; % beginning index for the blocks
-nyend=ntdata-blockhalfwith;% ending index for the blocks
-nblockcenters=nyend-nybeg+1;% number of block centers
-nblocks=ceil(ntdata/nsamps_per_BS_block); % number of blocks selected each bootstrap
-% define weights for bootstrap analysis
-pest_BS=NaN(npvar,nbootstrap);
-temp_wydata=wydata; % save weights before bootstrap
-obj_fn2 = @(parray,wydata)obj_fn(parray, real, array_names, tspan, get_init_conditions(params, 0),wydata);
-for ib=1:nbootstrap % do bootstrap str.nbootstrap times
-    wdataBS=zeros(ntdata,nzdim); % initialize BS weigths to zero
-    
-    index_bs=nybeg+ceil(nblockcenters*rand(nblocks,1))-1;% random centers for blocks
-    
-    for ip=1:nblocks
-        
-        for ibb=index_bs(ip)-blockhalfwith:index_bs(ip)+blockhalfwith % loop over points in a block
-            wdataBS(ibb,:)=wdataBS(ibb,:)+1; % update weight of points in a block
-        end
-        
-    end
-    
-    wydata=temp_wydata.*sqrt(wdataBS); % use the square root since the weights are wydata^2
-    % fit the data
-    pfit =optimizer(@(p)obj_fn2(p,wydata), lb, ub, params);% save fitted parameters
-    pfit.theta1 = 1 - pfit.theta2;
-    pest_BS(:,ib) = struct2array(pfit,array_names);
-end
-wydata = temp_wydata;
-pest_mean=mean(pest_BS,2); % define the mean of bootstrapped parameters
-pest_STD= std(pest_BS,0,2) ; % standard deviation of the parameter estimates
-pest_SE = pest_STD/sqrt(nbootstrap); % Standard Error
-zstar=1.96 ;% for 95% confidence interval (assumes Gaussian distribution)
-pest_CI95 = zstar*pest_SE ;  % 95% confidence bounds delta
-
-str.corrcoef = corrcoef(pest_BS');
-disp('    mean pfit     95% CI     all data')
-disp([pest_mean,pest_CI95,struct2array(opt_params1,array_names)'])
-p_mean = array2struct(pest_mean,array_names);
-init_mean = get_init_conditions(p_mean, 0);
-[t_mean,out_mean] = balance_and_solve(tspan, init_mean, p_mean);
-
-p_up = array2struct(pest_mean +pest_CI95 ,array_names);
-init_up = get_init_conditions(p_up, 0);
-[t_up,out_up] = balance_and_solve(tspan, init_up, p_up);
-
-p_low = array2struct(pest_mean -pest_CI95 ,array_names);
-init_low = get_init_conditions(p_low, 0);
-[t_low,out_low] = balance_and_solve(tspan, init_low, p_low);
- 
-figure()
-ciplot(out_low(:,7)+out_low(:,8),out_up(:,7)+out_up(:,8),tspan,'k')
-hold on
-plot(tspan, out_mean(:,7)+out_mean(:,8),'-r')
-plot(tspan,full_count,'*')
 
 %% Making 3 week predictions
 % first 10 data points
@@ -507,19 +446,19 @@ plot(tspan,full_count,'*')
 plot(tspan(10)*ones(size(tspan)),0:max((out1(:,7)+out1(:,8)))/(length(tspan)-1):max((out1(:,7)+out1(:,8))))
 plot(tspan(13)*ones(size(tspan)),0:max((out1(:,7)+out1(:,8)))/(length(tspan)-1):max((out1(:,7)+out1(:,8))))
 %% 20 data points
-data20 = real(1:20);
-tdata20 = tspan(1:20);
+data20 = real(1:25);
+tdata20 = tspan(1:25);
 obj_fn20 = @(parray)obj_fn(parray, data20, array_names, tdata20, ones(length(data20),1));
 [opt_params20] = optimizer(obj_fn20, lb, ub, params);
  opt_params20.theta1 = 1 - opt_params20.theta2;
 init20 = get_init_conditions(opt_params20, 0);
 [t20,out20] = balance_and_solve(tspan, init20, opt_params20);
 figure();
-plot(tspan, out20(:,7)+out20(:,8),'-r')
+plot(tspan./7, out20(:,7)+out20(:,8),'-r')
 hold on
-plot(tspan,full_count,'*')
-plot(tspan(20)*ones(size(tspan)),0:max((out1(:,7)+out1(:,8)))/(length(tspan)-1):max((out1(:,7)+out1(:,8))))
-plot(tspan(23)*ones(size(tspan)),0:max((out1(:,7)+out1(:,8)))/(length(tspan)-1):max((out1(:,7)+out1(:,8))))
+plot(tspan./7,full_count,'*')
+plot(tspan(25)/7*ones(size(tspan)),0:max((out1(:,7)+out1(:,8)))/(length(tspan)-1):max((out1(:,7)+out1(:,8))))
+plot(tspan(28)/7*ones(size(tspan)),0:max((out1(:,7)+out1(:,8)))/(length(tspan)-1):max((out1(:,7)+out1(:,8))))
 %%
 CI_for_predictions_bootstrap(5,5,data20,tdata20,params,opt_params20,array_names,lb,ub,full_count)
 %% 30 data points
@@ -568,3 +507,32 @@ plot(tspan,full_count,'*')
 plot(tspan(50)*ones(size(tspan)),0:max((out1(:,7)+out1(:,8)))/(length(tspan)-1):max((out1(:,7)+out1(:,8))))
 plot(tspan(53)*ones(size(tspan)),0:max((out1(:,7)+out1(:,8)))/(length(tspan)-1):max((out1(:,7)+out1(:,8))))
 
+%%
+tsim = [0:7:100*7];
+init1 = get_init_conditions(opt_params1, 0);
+[t1,out1] = balance_and_solve(tsim, init1, opt_params1);
+figure()
+plot(tsim./7, out1(:,7)+out1(:,8))
+hold on
+opt_params2 = opt_params1
+opt_params2.theta2 = opt_params1.theta2/2;
+opt_params2.theta1 = 1 - opt_params1.theta2;
+
+init2 = get_init_conditions(opt_params2, 0);
+[t2,out2] = balance_and_solve(tsim, init2, opt_params2);
+plot(tsim./7, out2(:,7)+out2(:,8))
+
+%%
+tsim = [0:7:100*7];
+init1 = get_init_conditions(opt_params1, 0);
+[t1,out1] = balance_and_solve(tsim, init1, opt_params1);
+figure()
+plot(tsim./7, out1(:,7)+out1(:,8))
+hold on
+opt_params2 = opt_params1;
+opt_params2.pi2 = opt_params1.pi2/2;
+opt_params2.pi1 = opt_params1.pi1/2;
+
+init2 = get_init_conditions(opt_params2, 0);
+[t2,out2] = balance_and_solve(tsim, init2, opt_params2);
+plot(tsim./7, out2(:,7)+out2(:,8))

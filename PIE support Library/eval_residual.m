@@ -46,4 +46,9 @@ switch str.regularize
         error(['str.regularize not recognized',str.regularize])
 end
 
+% r0 = calc_R0(get_init(str, p),p,str);
+% if r0 < 1
+%     residuals = residuals.*(10+r0);
+% end
+
 end
