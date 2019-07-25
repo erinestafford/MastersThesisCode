@@ -7,8 +7,8 @@ function xpdf = unif2pdf(xunif, str)
 
 % str.pdf  structure with the parameters defining pdf
 % str.pdfmin - min range for the pdf
-% str.pdfmin - max range for the pdf
-% str.pdfmin - mode for the pdf
+% str.pdfmax - max range for the pdf
+% str.pdfmode - mode for the pdf
 
 % output
 % xpdf(nsamp,nPOI) - mapped samples with distribution str.pdf
